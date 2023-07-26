@@ -1,3 +1,5 @@
+This is a custom build of the Electron framework based on the Supermium browser codebase, coming soon. This will be used to run Electron-based web applications that otherwise require Electron binaries that are incompatible with Windows Vista/7/8.x. Instructions for end-users will be provided once the project is stabilized. The original readme follows below.
+
 [![Electron Logo](https://electronjs.org/images/electron-logo.svg)](https://electronjs.org)
 
 [![CircleCI Build Status](https://circleci.com/gh/electron/electron/tree/main.svg?style=shield)](https://circleci.com/gh/electron/electron/tree/main)
