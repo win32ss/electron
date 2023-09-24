@@ -33,11 +33,10 @@ index 2e4bacce52a45b5d9d7829c1f88f82aa0bb1b4bb..f3537e89191bd2c6d9b06c9b741a1680
  
    Widget* GetWidget();
    const Widget* GetWidget() const;
-diff --git a/ui/views/win/hwnd_message_handler.cc b/ui/views/win/hwnd_message_handler.cc
-index 7a913d4714ae571505111d5fdf8303793bde629b..ec7a05ac5c261c0292684b47db275f7b1ef5daa4 100644
+index aacb580a7506f2c86769251ad00d8679870a454a..400278ab26a4e095fd837fcf84c952a1297b173d 100644
 --- a/ui/views/win/hwnd_message_handler.cc
 +++ b/ui/views/win/hwnd_message_handler.cc
-@@ -3253,15 +3253,19 @@ LRESULT HWNDMessageHandler::HandleMouseEventInternal(UINT message,
+@@ -3140,15 +3140,19 @@ LRESULT HWNDMessageHandler::HandleMouseEventInternal(UINT message,
        SetMsgHandled(FALSE);
      // We must let Windows handle the caption buttons if it's drawing them, or
      // they won't work.
@@ -60,12 +59,12 @@ index 7a913d4714ae571505111d5fdf8303793bde629b..ec7a05ac5c261c0292684b47db275f7b
    }
  
 diff --git a/ui/views/win/hwnd_message_handler_delegate.h b/ui/views/win/hwnd_message_handler_delegate.h
-index fde18715e33ee67f64740ebda7c641954360483c..cf1ea75f8e9dd1d95045736959c4f3ca1a27a1ab 100644
+index 233dd12f86c20a7f5169caab998993f614e8bc7e..3bf6fc95a653f1783510378ffeef5b18da42e559 100644
 --- a/ui/views/win/hwnd_message_handler_delegate.h
 +++ b/ui/views/win/hwnd_message_handler_delegate.h
-@@ -255,6 +255,10 @@ class VIEWS_EXPORT HWNDMessageHandlerDelegate {
-   // Called when the headless window bounds has changed.
-   virtual void HandleHeadlessWindowBoundsChanged(const gfx::Rect& bounds) = 0;
+@@ -258,6 +258,10 @@ class VIEWS_EXPORT HWNDMessageHandlerDelegate {
+   // Called when the window scale factor has changed.
+   virtual void HandleWindowScaleFactorChanged(float window_scale_factor) = 0;
  
 +  // Called when synthetic mouse event is generated for touch event on
 +  // caption buttons.
