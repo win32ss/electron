@@ -76,8 +76,18 @@ are subtle differences.
 
 ### Windows
 
-For notifications on Windows, your Electron app needs to have a Start Menu shortcut with an
-[AppUserModelID][app-user-model-id] and a corresponding [ToastActivatorCLSID][toast-activator-clsid].
+* On Windows 10, a shortcut to your app with an
+[Application User Model ID][app-user-model-id] must be installed to the
+Start Menu. This can be overkill during development, so adding
+`node_modules\electron\dist\electron.exe` to your Start Menu also does the
+trick. Navigate to the file in Explorer, right-click and 'Pin to Start Menu'.
+You will then need to add the line `app.setAppUserModelId(process.execPath)` to
+your main process to see notifications.
+* On Windows 8.1 and Windows 8, a shortcut to your app with an [Application User
+Model ID][app-user-model-id] must be installed to the Start screen. Note,
+however, that it does not need to be pinned to the Start screen.
+* On Windows 7, notifications work via a custom implementation which visually
+resembles the native one on newer systems.
 
 Electron attempts to automate the work around the AppUserModelID and ToastActivatorCLSID. When
 Electron is used together with Squirrel.Windows (e.g. if you're using electron-winstaller),
@@ -87,7 +97,13 @@ In production, Electron will also detect that Squirrel was used and will automat
 `app.setAppUserModelId()` with the correct value. During development, you may have
 to call [`app.setAppUserModelId()`][set-app-user-model-id] yourself.
 
-:::info Notifications in development
+Furthermore, in Windows 8, the maximum length for the notification body is 250
+characters, with the Windows team recommending that notifications should be kept
+to 200 characters. That said, that limitation has been removed in Windows 10, with
+the Windows team asking developers to be reasonable. Attempting to send gigantic
+amounts of text to the API (thousands of characters) might result in instability.
+
+#### Advanced Notifications
 
 To quickly bootstrap notifications during development, adding
 `node_modules\electron\dist\electron.exe` to your Start Menu also does the
@@ -145,7 +161,6 @@ GNOME, and KDE.
 [app-user-model-id]: https://learn.microsoft.com/en-us/windows/win32/shell/appids
 [set-app-user-model-id]: ../api/app.md#appsetappusermodelidid-windows
 [squirrel-events]: https://github.com/electron/windows-installer/blob/main/README.md#handling-squirrel-events
-[toast-activator-clsid]: https://learn.microsoft.com/en-us/windows/win32/properties/props-system-appusermodel-toastactivatorclsid
 [apple-notification-guidelines]: https://developer.apple.com/design/human-interface-guidelines/notifications
 [windows-notification-state]: https://github.com/felixrieseberg/windows-notification-state
 [macos-notification-state]: https://github.com/felixrieseberg/macos-notification-state
